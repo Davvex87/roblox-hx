@@ -1,0 +1,11 @@
+{ 
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "HXCPP",
+            "type": "hxcpp",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/roblox-ts.exe"
+        }
+    ]
+}

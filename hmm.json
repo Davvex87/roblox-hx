@@ -1,0 +1,24 @@
+{
+  "dependencies": [
+    {
+      "name": "haxe-files",
+      "type": "haxelib",
+      "version": null
+    },
+    {
+      "name": "hxcpp",
+      "type": "haxelib",
+      "version": null
+    },
+    {
+      "name": "json2object",
+      "type": "haxelib",
+      "version": null
+    },
+    {
+      "name": "thx.semver",
+      "type": "haxelib",
+      "version": null
+    }
+  ]
+}

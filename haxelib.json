@@ -1,0 +1,10 @@
+{
+	"name": "roblox-hx",
+	"url": "https://github.com/Davvex87/roblox-hx/",
+	"license": "MIT",
+	"tags": ["lua","roblox"],
+	"description": "A tool for compiling Haxe source code into luau to be used in roblox games.",
+	"version": "0.0.0-alpha.1",
+	"releasenote": "First alpha release. Contains only the bare basics of roblox-hx project configuration files and basic lua compilation.",
+	"contributors": ["Davvex87"]
+}

@@ -1,0 +1,11 @@
+-cp tool
+-m RobloxHx
+
+-lib haxe-files
+-lib thx.semver
+-lib json2object
+
+-D no-deprecation-warnings
+-D HAXE_OUTPUT_FILE=run
+
+--neko run.n
