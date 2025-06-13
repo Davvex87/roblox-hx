@@ -1,5 +1,5 @@
 # Roblox-HX
-A tool for haxe which allows roblox game developers to program their game using the Haxe programming language and compile it to lua to be used in their games. It uses Haxe's built in lua transpiler for this translation for 100% Haxe features coverage.
+A tool for haxe which allows roblox game developers to program their game using the Haxe programming language and compile it to lua to be used in their games. It uses Haxe's built-in lua transpiler to ensure that 100% of Haxe's language features are covered.
 
 > [!WARNING]  
 > This tool is still in very early alpha, it is not recommended to be used in production quite yet.
