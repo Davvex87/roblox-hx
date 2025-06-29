@@ -1,7 +1,7 @@
 
 -D lua-ver=5.1
 -D lua-vanilla
--cp proxy
+-cp D:\roblox-hx\proxy
 
 --dce no
 
@@ -25,7 +25,10 @@
 --macro exclude("Lambda", true)
 --macro exclude("StringTools", true)
 --macro exclude("ValueType", true)
+--macro exclude("rblx", true)
+
 
 --macro LuaDepMacro.build()
 --macro LuaModMacro.build()
---macro addGlobalMetadata("", "@:build(LuaModMacro.buildType())", true, true, true)
+
+# TODO: add a macro which duplicates the regular service class fields into static fields so that the regular class and class objects have the same fields

@@ -1,4 +1,4 @@
-package mygame.pkg;
+package myGame.pkg;
 
 import lua.Math;
 

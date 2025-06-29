@@ -1,5 +1,6 @@
 package commands;
 
+import modules.InstanceFactoryPatcher;
 import utils.HaxeUtils;
 import modules.StdInjector;
 import modules.GlobalPatcher;
@@ -37,6 +38,7 @@ class GenStdCommand implements ICommand
 	{
 		// Create or append some resources to the temp folder
 		Resources.appendCompilationResources();
+		Resources.patchLibBuildParams();
 		var haxeStd = Resources.appendStdLibrary();
 
 		// Cache up some directories and paths for later use
@@ -97,6 +99,7 @@ class GenStdCommand implements ICommand
 		fileStr = GlobalPatcher.patch(fileStr);
 		fileStr = StringPatcher.patch(fileStr);
 		fileStr = TablePatcher.patch(fileStr);
+		fileStr = InstanceFactoryPatcher.patch(fileStr);
 
 		fileStr += '\n\nreturn {${GenStdCommand.STD_LUA_FIELDS.join(", ")}, ${GenStdCommand.HAXE_STD_ABSTRACTS.join(", ")}, ${compiledClasses.join(", ")}}';
 

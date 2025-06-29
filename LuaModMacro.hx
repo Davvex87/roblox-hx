@@ -25,12 +25,6 @@ class LuaModMacro
 		return null;
 	}
 
-	public static macro function buildType():Array<Field>
-	{
-		var fields = Context.getBuildFields();
-		return fields;
-	}
-
 	static function onGenerate(types:Array<Type>)
 	{
 		var saveFile = Path.join([Sys.getCwd(), "pkg_list-lock.json"]);

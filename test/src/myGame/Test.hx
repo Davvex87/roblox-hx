@@ -1,6 +1,6 @@
-package mygame;
+package myGame;
 
-import mygame.pkg.OtherClass;
+import myGame.pkg.OtherClass;
 
 var myVar = OtherClass.e;
 

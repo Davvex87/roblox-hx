@@ -1,3 +1,4 @@
+import utils.Git;
 import haxe.Exception;
 import commands.*;
 import utils.Constants;
@@ -40,6 +41,9 @@ class RobloxHx
 	{
 		// Strip the last argument of the arguments array, neko adds the cwd dir path as the last item in the array for some reason, and Sys.getCwd just returns the .n script dir path instead? what
 		Sys.setCwd(ARGUMENTS.splice(-1, 1)[0]);
+
+		// Let's just ensure that the git hooks folder exists, for developers
+		Git.setupCommitHook();
 
 		// Exit out of the program if we do not meet some criteria
 		testForStartupDependencies();
@@ -87,7 +91,7 @@ class RobloxHx
 		if (haxeVer == null)
 			return exit(HAXE_NOT_PRESENT,
 				'Haxe is not installed. roblox-hx requires Haxe v${Constants.MIN_HAXE_COMPILER_VERSION} or higher (${Constants.HAXE_COMPILER_VERSION} recommended).');
-		else if (haxeVer < Constants.HAXE_COMPILER_VERSION)
+		else if (haxeVer < Constants.MIN_HAXE_COMPILER_VERSION)
 			return exit(HAXE_VER_INCOMP,
 				'Incompatible Haxe version present (${haxeVer}). roblox-hx requires Haxe v${Constants.MIN_HAXE_COMPILER_VERSION} or higher (${Constants.HAXE_COMPILER_VERSION} recommended).');
 

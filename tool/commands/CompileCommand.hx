@@ -1,5 +1,6 @@
 package commands;
 
+import modules.InstanceFactoryPatcher;
 import utils.HaxeUtils;
 import modules.GlobalPatcher;
 import modules.TablePatcher;
@@ -79,6 +80,7 @@ class CompileCommand implements ICommand
 			}
 
 			Resources.appendCompilationResources();
+			Resources.patchLibBuildParams();
 			var haxeStd = Resources.appendStdLibrary();
 
 			Sys.putEnv("HAXE_STD_PATH", haxeStd.getAbsolutePath());
@@ -128,6 +130,7 @@ class CompileCommand implements ICommand
 
 		// Create or append resources to the temp folder for future use.
 		Resources.appendCompilationResources();
+		Resources.patchLibBuildParams();
 		var haxeStd = Resources.appendStdLibrary();
 
 		// Tell the haxe compiler to use this as our custom std path
@@ -136,6 +139,7 @@ class CompileCommand implements ICommand
 		var haxeSourceFiles = d.findFiles("**/*.hx");
 
 		// Generate export information .json files to help us determine what types to compile and what each type demands.
+		// TODO: Make sure that files from the hxrt standard library are not included, keeping them will only waste lots of time since these files (mostly) only include externs.
 		for (file in haxeSourceFiles)
 			generateFileExports(file.path, opts);
 
@@ -152,11 +156,20 @@ class CompileCommand implements ICommand
 
 		// Attention: This counter does not represent the number of types present in the program,
 		// it just represents the total number of source files which contains types.
-		final totalSourceFileCount:Int = Reflect.fields(typesByFile).length;
+		// final totalSourceFileCount:Int = Reflect.fields(typesByFile).length;
+		var totalSourceFileCount:UInt = 0;
 
 		// Now that we have everything we need, we're ready to compile some .hx to .lua!
 		for (file in haxeSourceFiles)
+		{
+			// Lets just check to see if this file even has any module to compile...
+			// If it doesn't, we'll just skip it.
+			if (!Reflect.hasField(typesByFile, file.path.getAbsolutePath().replace("\\", "/")))
+				continue;
+
 			compileFile(file.path, opts, typesByFile, pkgList);
+			totalSourceFileCount += 1;
+		}
 
 		// If we specified an entry point in our options structure then add the __init__.lua file to the final output.
 		// This is so that our program can actually run on its own without a third party activating it first.
@@ -309,6 +322,7 @@ class CompileCommand implements ICommand
 		fileStr = GlobalPatcher.patch(fileStr);
 		fileStr = StringPatcher.patch(fileStr);
 		fileStr = TablePatcher.patch(fileStr);
+		fileStr = InstanceFactoryPatcher.patch(fileStr);
 
 		// Add the imports into the static initialization function from the function we called a while ago
 		var typePkgStr = '';

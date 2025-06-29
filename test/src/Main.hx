@@ -1,6 +1,6 @@
 package;
 
-import mygame.Test;
+import myGame.Test;
 
 class Main
 {
