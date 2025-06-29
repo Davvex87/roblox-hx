@@ -46,3 +46,10 @@ Check out [ROADMAP.md](/ROADMAP.md) to have a preview on what's to come into rob
 
 # Contributing
 To contribute to roblox-hx, simply clone the ``dev`` repository, do your additions or changes and make pull requests.
+The github version of roblox-hx does not come with some haxe externs pre-packaged and need to be generated manually.
+```shell
+git clone https://github.com/Davvex87/roblox-hx.git --recurse-submodules
+cd roblox-hx/api-generator
+haxe ./build.hxml
+neko ./run.n
+```
