@@ -1,0 +1,3 @@
+[submodule "api-generator"]
+	path = api-generator
+	url = https://github.com/Davvex87/roblox-hx-api-generator.git

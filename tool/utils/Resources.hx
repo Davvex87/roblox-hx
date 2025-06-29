@@ -5,6 +5,8 @@ import hx.files.Path;
 import hx.files.Dir;
 import haxe.Exception;
 
+using StringTools;
+
 class Resources
 {
 	public static function appendCompilationResources()
@@ -33,7 +35,7 @@ class Resources
 
 		// TODO: Replace this with a better folder diff compare function,
 		//       the problem is that 2 folders are merged to create one...
-		if (stdPath.exists())
+		if (targetDir.exists())
 			return targetDir;
 
 		stdPath.toDir().copyTo(targetDir, [OVERWRITE]);
@@ -41,6 +43,27 @@ class Resources
 		libPath.join("src").toDir().copyTo(targetDir, [MERGE]);
 
 		return targetDir;
+	}
+
+	public static function patchLibBuildParams()
+	{
+		var libPath = HaxeUtils.getLibraryDir("roblox-hx");
+		if (libPath == null)
+			throw new Exception("Library roblox-hx is not installed");
+
+		var buildFile = libPath.join("extraParams.hxml").toFile();
+		var contents = buildFile.readAsString();
+		var lines = contents.split("\n");
+		for (i in 0...lines.length)
+		{
+			if (lines[i].startsWith("-cp") || lines[i].startsWith("# AUTOGEN -cp"))
+			{
+				lines[i] = "-cp " + libPath.join("proxy").getAbsolutePath();
+				break;
+			}
+		}
+		contents = lines.join("\n");
+		buildFile.writeString(contents);
 	}
 
 	public static inline function getRobloxHxStdPath():Path

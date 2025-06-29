@@ -39,6 +39,7 @@ Whenever you install roblox-hx, it comes pre-packaged with the most up-to-date n
   - ``hmm install``
 
 3. Build the neko script
+  - ``haxe ./build.hxml``
 
 # Roadmap
 Check out [ROADMAP.md](/ROADMAP.md) to have a preview on what's to come into roblox-hx.
