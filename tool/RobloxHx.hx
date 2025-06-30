@@ -27,6 +27,7 @@ class RobloxHx
 			new CompileCommand(),
 			new ListenCommand(),
 			new GenStdCommand(),
+			new CleanCommand(),
 			new CreateProjectCommand()
 		],
 		"MISC" => [

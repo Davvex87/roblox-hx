@@ -221,10 +221,82 @@ class CompileCommand implements ICommand
 		var fName = path.filenameStem;
 		var relativeDir = Path.of(absPath.replace(opts.sourceFolder, "").replace(file, "")).normalize();
 		var outputDir = Path.of(opts.outputFolder).join(relativeDir).normalize();
-		var outputFile:File = Path.of(HxPath.join([outputDir.getAbsolutePath(), '${path.filenameStem}.lua'])).toFile();
+		var isClientScript = false;
+
+		// Get the types for this file from typesByFile
+		var fileTypesKey = absPath.replace("\\", "/"); // Normalize path separators
+		if (Reflect.hasField(typesByFile, fileTypesKey))
+		{
+			var fileTypes:Array<{n:String, p:String, ?m:Array<Array<String>>}> = Reflect.field(typesByFile, fileTypesKey);
+
+			// Check each type in this file
+			for (typeInfo in fileTypes)
+			{
+				var hasClientMeta = false;
+				var hasServerMeta = false;
+
+				// First, check for metadata overrides
+				if (typeInfo.m != null)
+				{
+					for (metadata in typeInfo.m)
+					{
+						if (metadata.length > 0)
+						{
+							var metaName = metadata[0];
+							if (metaName == ":client")
+							{
+								hasClientMeta = true;
+							}
+							else if (metaName == ":server")
+							{
+								hasServerMeta = true;
+							}
+						}
+					}
+				}
+
+				// Apply metadata overrides (server takes precedence over client if both are present)
+				if (hasServerMeta)
+				{
+					isClientScript = false;
+					break; // Server metadata forces server, no need to check further
+				}
+				else if (hasClientMeta)
+				{
+					isClientScript = true;
+					break; // Client metadata forces client, no need to check further
+				}
+
+				// If no metadata overrides, check package-based rules
+				var fullPackage = typeInfo.p;
+				if (opts.clientPackages != null)
+				{
+					for (clientPkg in opts.clientPackages)
+					{
+						// Check if the package starts with the client package pattern
+						// This handles both exact matches and subpackage matches
+						if (fullPackage == clientPkg || fullPackage.startsWith(clientPkg + "."))
+						{
+							isClientScript = true;
+							break;
+						}
+					}
+				}
+
+				// If we found a package match, no need to check other types in this file
+				if (isClientScript)
+				{
+					break;
+				}
+			}
+		}
+
+		var outputFile:File = Path.of(HxPath.join([
+			outputDir.getAbsolutePath(),
+			'${path.filenameStem}${!opts.rojoSupport ? "" : isClientScript ? ".client" : ".server"}.lua'
+		])).toFile();
 
 		var tempFolder:Path = Resources.getTempFolder().join("rhcr");
-		var luaFiles:Path = tempFolder.join("lua").join("_lua");
 
 		// Define a list of .lua source files to include and exclude from compilation
 		var fileIncludes = [];
