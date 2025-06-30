@@ -4,7 +4,7 @@
 	"license": "MIT",
 	"tags": ["lua","roblox"],
 	"description": "A tool for compiling Haxe source code into luau to be used in roblox games.",
-	"version": "0.0.0-alpha.2",
-	"releasenote": "API generator and Roblox object externs.",
+	"version": "0.0.0-alpha.3",
+	"releasenote": "Rojo support.",
 	"contributors": ["Davvex87"]
 }

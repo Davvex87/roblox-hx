@@ -1,10 +1,9 @@
 # Roadmap
-## 0.0.0-alpha.3
-- Rojo support
-- Client, Server and Module scripts generator
+Have an insight of the future of the project. Note that this is not a timeline of when the project will be done, nor it's contents are fixed. Things may change from time to time!
 
 ## 0.0.0-alpha.4
 - Custom externs support
+- Better service classes
 
 ## 0.0.0-alpha.5
 - Listen command
