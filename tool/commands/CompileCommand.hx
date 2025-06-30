@@ -198,6 +198,23 @@ class CompileCommand implements ICommand
 		Sys.putEnv("HAXE_STD_PATH", null);
 
 		Sys.println("Program build finished.");
+
+		if (opts.copyNonSourceFiles)
+		{
+			Sys.println("Copying non-source files...");
+
+			var files = Dir.of(opts.sourceFolder).findFiles("**/*");
+			for (file in files)
+			{
+				if (file.path.filenameExt == "hx")
+					continue;
+
+				var dir = Path.of(opts.outputFolder).join(file.path.getAbsolutePath().replace("\\", "/").replace(opts.sourceFolder.replace("\\", "/"), ""));
+				file.copyTo(dir);
+			}
+
+			Sys.println("Files copied!");
+		}
 	}
 
 	/**
