@@ -1,5 +1,6 @@
 package;
 
+import haxe.Serializer;
 import sys.FileSystem;
 import haxe.ds.StringMap;
 import haxe.macro.Expr;
@@ -40,7 +41,7 @@ class LuaDepMacro
 
 		var fileOut:FileOutput = File.write(saveFile, false);
 
-		function ensureMap(f:String):Array<{n:String, p:String}>
+		function ensureMap(f:String):Array<{n:String, p:String, ?m:Array<Array<String>>}>
 		{
 			if (!Reflect.hasField(fileTypes, f))
 				Reflect.setField(fileTypes, f, []);
@@ -60,10 +61,27 @@ class LuaDepMacro
 				if (d.n == n && d.p == p)
 					return;
 
-			data.push({
+			var m = null;
+			for (mt in type.meta.get())
+			{
+				if (m == null)
+					m = [];
+
+				var r = [mt.name];
+				if (mt.params != null && mt.params.length > 0)
+					r.push(Serializer.run(mt.params));
+				m.push(r);
+			}
+
+			var o = {
 				n: type.name,
 				p: type.pack.join(".")
-			});
+			};
+
+			if (m != null)
+				Reflect.setField(o, "m", m);
+
+			data.push(o);
 		}
 
 		for (type in types)

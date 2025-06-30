@@ -1,5 +1,7 @@
 {
 	"sourceFolder": "src",
 	"outputFolder": "out",
-	"entryPoint": "Main"
+	"entryPoint": "Main",
+	"rojoSupport": true,
+	"clientPackages": ["myGame"]
 }

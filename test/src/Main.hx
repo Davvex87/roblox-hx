@@ -8,5 +8,8 @@ class Main
 	{
 		trace("Hello, world!");
 		Test.main();
+
+		var ob = new ClientTest("Bob", 12);
+		ob.greet();
 	}
 }

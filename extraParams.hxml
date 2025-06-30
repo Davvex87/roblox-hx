@@ -1,7 +1,7 @@
 
 -D lua-ver=5.1
 -D lua-vanilla
--cp D:\roblox-hx\proxy
+# AUTOGEN
 
 --dce no
 
@@ -31,4 +31,3 @@
 --macro LuaDepMacro.build()
 --macro LuaModMacro.build()
 
-# TODO: add a macro which duplicates the regular service class fields into static fields so that the regular class and class objects have the same fields

@@ -23,6 +23,12 @@ typedef CompilerOptions =
 	@:optional
 	var rojoSupport:Bool;
 
+	@:default(true) @:optional
+	var copyNonSourceFiles:Bool;
+
+	@:optional
+	var clientPackages:Array<String>;
+
 	@:optional @:jignored var _filePath:String;
 }
 
