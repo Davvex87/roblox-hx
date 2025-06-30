@@ -56,7 +56,7 @@ class Resources
 		var lines = contents.split("\n");
 		for (i in 0...lines.length)
 		{
-			if (lines[i].startsWith("-cp") || lines[i].startsWith("# AUTOGEN -cp"))
+			if (lines[i].startsWith("-cp") || lines[i].startsWith("# AUTOGEN"))
 			{
 				lines[i] = "-cp " + libPath.join("proxy").getAbsolutePath();
 				break;
