@@ -1,16 +1,15 @@
-import utils.Git;
+package;
+
+import utils.Resources;
 import haxe.Exception;
 import commands.*;
 import utils.Constants;
 import thx.semver.Version;
 import utils.HaxeUtils;
-import macros.CompileTimeMacro;
-import CompilerOptions;
-import hx.files.File;
-import hx.files.Path;
 
 using utils.ExitCode;
 using StringTools;
+using utils.AnsiColors;
 
 class RobloxHx
 {
@@ -23,28 +22,15 @@ class RobloxHx
 	 * List of commands available to the end user, descriptions and parameters.
 	 */
 	public static var COMMANDS:Map<String, Array<ICommand>> = [
-		"USAGE" => [
-			new CompileCommand(),
-			new ListenCommand(),
-			new GenStdCommand(),
-			new CleanCommand(),
-			new CreateProjectCommand()
-		],
-		"MISC" => [
-			new HelpCommand(),
-			new VersionCommand(),
-			new ClearTempCommand(),
-			new SetupCommand(),
-		],
+		"USAGE" => [new CompileCommand(), new CleanCommand(), new CreateProjectCommand()],
+		"MISC" => [new HelpCommand(), new VersionCommand(), new SetupCommand(),],
 	];
 
 	static function main()
 	{
 		// Strip the last argument of the arguments array, neko adds the cwd dir path as the last item in the array for some reason, and Sys.getCwd just returns the .n script dir path instead? what
+		// trace(ARGUMENTS);
 		Sys.setCwd(ARGUMENTS.splice(-1, 1)[0]);
-
-		// Let's just ensure that the git hooks folder exists, for developers
-		Git.setupCommitHook();
 
 		// Exit out of the program if we do not meet some criteria
 		testForStartupDependencies();
@@ -69,10 +55,16 @@ class RobloxHx
 					{
 						cmd.run(ARGUMENTS);
 					}
-					catch (e:Exception)
+					catch (e:Dynamic)
 					{
-						return exit(-1, '\x1b[31m${e.details()}\x1b[0m\n');
+						if (e is String)
+							return exit(-2, e);
+						else if (e is Exception)
+							return exit(-1, e.details());
+						else
+							return exit(-1, Std.string(e));
 					}
+
 					return exit(SUCCESS);
 				}
 			}
@@ -101,14 +93,21 @@ class RobloxHx
 		if (haxelibVer == null)
 			return exit(HAXELIB_NOT_PRESENT, 'Haxelib is not installed. roblox-hx requires haxelib to access external libraries.');
 
-		// Checks if, for some reason, the HAXEPATH environment variable is not defined.
-		var hxpath = Sys.getEnv("HAXEPATH");
-		if (hxpath == null)
-			return exit(HAXE_NOT_PRESENT, "HAXEPATH must be a set environment variable");
-
 		// Print out a little warning message in case the user still hasn't ran the ´setup´ command yet
-		if (!Path.of(hxpath).join('roblox-hx${HaxeUtils.isWin ? ".bat" : ""}').exists() && ARGUMENTS[0] != "setup")
-			Sys.println("\x1b[33m| roblox-hx is not installed in the HAXEPATH directory!\n| > Please run `haxelib run roblox-hx setup` first.\x1b[0m\n");
+		if (!Resources.libLinkExists() && ARGUMENTS[0] != "setup")
+			Sys.println("│ roblox-hx is not installed in the HAXEPATH directory!\n│ > Please run `haxelib run roblox-hx setup` first.\n".boldYellow());
+
+		// Prints out a little warning message if we are missing some installed libraries
+		final missingLibraries:Array<String> = ["reflaxe", "reflaxe.lua"];
+		var i = missingLibraries.length - 1;
+		while (i >= 0)
+		{
+			if (HaxeUtils.getLibraryVersion("reflaxe") != null)
+				missingLibraries.splice(i, 1);
+			i--;
+		}
+		if (missingLibraries.length > 0)
+			Sys.println('│ Missing libraries: ${missingLibraries.join(", ")}\n│ > Please install these first through haxelib.\n'.boldYellow());
 	}
 
 	/**
@@ -155,8 +154,11 @@ function exit(code:Int, ?msg:String)
 	if (msg != null)
 		if (code == 0)
 			Sys.println(msg);
+		else if (code == -1)
+			Sys.stderr()
+				.writeString('An internal exception was thrown:\n$msg\n\nIf this issue persists, please report it here: https://github.com/Davvex87/roblox-hx/issues'.boldRed());
 		else
-			Sys.stderr().writeString(msg);
+			Sys.stderr().writeString(msg.boldRed());
 
 	return Sys.exit(code);
 }

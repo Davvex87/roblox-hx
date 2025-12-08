@@ -1,10 +1,8 @@
 package commands;
 
-import hx.files.Dir;
-import hx.files.File;
-import CompilerOptions.buildOptionsFromFile;
-import haxe.Exception;
 import hx.files.Path;
+
+using utils.AnsiColors;
 
 /**
  * When ran, clears out some rubbish left behind by the compiler.
@@ -12,35 +10,37 @@ import hx.files.Path;
 class CleanCommand implements ICommand
 {
 	public var aliases:Array<String> = ["cl", "clean"];
-	public var description:String = "Cleans the target roblox-hx project, removing package lock .json files and output files.";
+	public var description:String = "Cleans the target roblox-hx project, removing file locks and output files.";
 
 	public function new() {}
 
 	public function run(arguments:Array<String>)
 	{
-		var file:Null<String> = arguments.shift();
-		var projOptFile:Path = null;
-
-		if (file != null)
+		var projectFile:Null<String> = arguments.shift();
+		var isProjectFile:Bool = true;
+		if (projectFile != null)
 		{
-			if (Path.of(file).isDirectory())
-				projOptFile = Path.of(file).join("compiler.rhx.json");
-			else
-				projOptFile = Path.of(file);
+			var p:Path = Path.of(projectFile);
+			if (p.filenameExt != "hxml")
+				isProjectFile = false;
 		}
+		else
+			projectFile = "project.rhx.hxml";
 
-		if (projOptFile == null || !projOptFile.exists())
-			projOptFile = Dir.getCWD().path.join("compiler.rhx.json");
+		if (!isProjectFile)
+			throw 'Unknown project file format. .hxml expected, got .${Path.of(projectFile).filenameExt}';
 
-		if (projOptFile == null || !projOptFile.exists())
-			throw new Exception("Project file not found.");
+		var p:Path = Path.of(projectFile);
+		if (!p.exists() || p.isDirectory())
+			throw 'Project file not found or is a directory';
 
-		var opts = buildOptionsFromFile(projOptFile.getAbsolutePath());
-		Dir.of(opts.outputFolder).delete(true);
+		var absPath = p.getAbsolutePath();
+		var hxml:HXML = HXML.fromFile(absPath);
 
-		File.of(projOptFile.parent.join("pkg_list-lock.json")).delete();
-		File.of(projOptFile.parent.join("type_pkg-lock.json")).delete();
+		var outputPath = Path.of(hxml.getDefine("output") ?? "out");
+		if (outputPath.exists() && outputPath.isDirectory())
+			outputPath.toDir().delete(true);
 
-		Sys.println("Cleaned project!");
+		Sys.println("Cleaned project!".boldBlue());
 	}
 }

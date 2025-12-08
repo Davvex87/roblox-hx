@@ -1,0 +1,8 @@
+{
+    "packageContexts": {
+        "_": "out#"
+    },
+    "contextPaths": {
+        "out": "Workspace"
+    }
+}

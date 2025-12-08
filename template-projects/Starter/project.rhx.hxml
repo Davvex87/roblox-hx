@@ -1,0 +1,30 @@
+###########################################
+########## PROJECT CONFIGURATION ##########
+###########################################
+
+# Project source path(s)
+-cp src
+
+# Project export path
+-D lua-output=out
+
+# Include packages
+server
+client
+shared
+
+# Required. Do not delete!
+-lib roblox-hx
+
+
+
+########################################
+########## USER CONFIGURATION ##########
+########################################
+
+# Libraries
+
+
+# Defines
+-D copy-non-source-files
+-D dce=std

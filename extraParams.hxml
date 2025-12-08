@@ -1,33 +1,4 @@
-
--D lua-ver=5.1
--D lua-vanilla
-# AUTOGEN
-
---dce no
-
---macro includeFile("src/lua/_lua/_hx_roblox.lua")
-
---macro exclude("Array", true)
---macro exclude("Date", true)
---macro exclude("EReg", true)
---macro exclude("Math", true)
---macro exclude("Reflect", true)
---macro exclude("Std", true)
---macro exclude("String", true)
---macro exclude("StringBuf", true)
---macro exclude("Sys", true)
---macro exclude("Type", true)
---macro exclude("haxe", true)
---macro exclude("sys", true)
---macro exclude("lua", true)
---macro exclude("_EnumValue", true)
---macro exclude("IntIterator", true)
---macro exclude("Lambda", true)
---macro exclude("StringTools", true)
---macro exclude("ValueType", true)
---macro exclude("rblx", true)
-
-
---macro LuaDepMacro.build()
---macro LuaModMacro.build()
-
+-lib reflaxe
+-lib reflaxe.lua
+-D roblox
+-D use-import-wrapper

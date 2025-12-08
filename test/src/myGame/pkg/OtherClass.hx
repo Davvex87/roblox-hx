@@ -1,6 +1,6 @@
 package myGame.pkg;
 
-import lua.Math;
+import Math;
 
 class OtherClass
 {

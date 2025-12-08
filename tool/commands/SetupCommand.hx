@@ -1,6 +1,7 @@
 package commands;
 
-import haxe.Exception;
+import utils.HaxeUtils;
+import utils.Resources;
 import hx.files.Path;
 import hx.files.File;
 
@@ -17,22 +18,20 @@ class SetupCommand implements ICommand
 
 	public function run(arguments:Array<String>)
 	{
-		var hxpath = Sys.getEnv("HAXEPATH");
-		if (hxpath == null)
-			throw new Exception("HAXEPATH must be a set environment variable");
+		final linkPath:Path = Resources.getLibLinkPath();
 
-		var dir:Path = Path.of(hxpath);
-
-		if (Sys.systemName() == "Windows")
-		{
-			File.of(dir.join("roblox-hx.bat")).writeString("@haxelib --global run roblox-hx %*", true);
-		}
+		if (HaxeUtils.isWin)
+			File.of(linkPath).writeString("@haxelib --global run roblox-hx %*", true);
 		else
 		{
-			File.of(dir.join("roblox-hx")).writeString("#!/bin/bash\nhaxelib --global run roblox-hx \"$@\"", true);
-			var code = Sys.command('cd ${dir.normalize()} && chmod u+x roblox-hx');
-			if (code != 0)
-				throw "Failed to create unix executable for roblox-hx";
+			final scriptPath = HaxeUtils.getLibraryDir("roblox-hx").join("roblox-hx");
+
+			final linkStr = linkPath.getAbsolutePath();
+			final scriptStr = scriptPath.getAbsolutePath();
+			Sys.command("chmod", ["+x", scriptStr]);
+			if (linkPath.exists())
+				Sys.command("sudo", ["rm", linkStr]);
+			Sys.command("sudo", ["ln", "-s", scriptStr, linkStr]);
 		}
 	}
 }

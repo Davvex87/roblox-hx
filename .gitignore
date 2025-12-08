@@ -3,9 +3,9 @@
 bin/
 dump/
 
-proxy/api-dump.json
-proxy/rblx/enums/
-proxy/rblx/instances/
-proxy/rblx/services/
+src/api-dump.json
+src/rblx/enums/
+src/rblx/instances/
+src/rblx/services/
 
 **/rblx.rar

@@ -1,0 +1,11 @@
+{
+    "name": "Starter",
+    "tree": {
+        "$className": "DataModel",
+        "ServerScriptService": {
+            "$className": "ServerScriptService",
+            "$ignoreUnknownInstances": true,
+            "$path": "out"
+        }
+    }
+}

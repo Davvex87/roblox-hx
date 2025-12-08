@@ -1,0 +1,29 @@
+###########################################
+########## PROJECT CONFIGURATION ##########
+###########################################
+
+# Project source path(s)
+-cp src
+
+# Project export path
+-D lua-output=out
+
+# Entry point class
+--main Main
+myGame
+
+# Required. Do not delete!
+-lib roblox-hx
+
+
+
+########################################
+########## USER CONFIGURATION ##########
+########################################
+
+# Libraries
+
+
+# Defines
+-D copy-non-source-files
+-D dce=no

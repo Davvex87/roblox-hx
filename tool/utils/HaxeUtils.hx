@@ -1,8 +1,6 @@
 package utils;
 
-import hx.files.Dir;
 import hx.files.Path;
-import haxe.exceptions.NotImplementedException;
 import sys.io.Process;
 import thx.semver.Version;
 
@@ -37,7 +35,7 @@ class HaxeUtils
 			if (process.exitCode() != 0)
 				throw null;
 
-			var output = process.stdout.readAll().toString().trim();
+			var output = process.stdout.readAll().toString().trim().split(" ")[0];
 			process.close();
 
 			return Version.stringToVersion(output);

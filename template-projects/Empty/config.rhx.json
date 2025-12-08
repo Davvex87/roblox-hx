@@ -1,0 +1,8 @@
+{
+    "packageContexts": {
+        "_": "source#"
+    },
+    "contextPaths": {
+        "source": "ServerScriptService"
+    }
+}

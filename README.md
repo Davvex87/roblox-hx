@@ -1,55 +1,190 @@
+<div align="center">
+<img width=25% src="github-resources/roblox-hx-logo-512x512.png">
+
 # Roblox-HX
-A tool for haxe which allows roblox game developers to program their game using the Haxe programming language and compile it to lua to be used in their games. It uses Haxe's built-in lua transpiler to ensure that 100% of Haxe's language features are covered.
+</div>
 
-> [!WARNING]  
-> This tool is still in very early alpha, it is not recommended to be used in production quite yet.
-> Proceed with caution!
 
-# Setup
-> [!NOTE]  
-> roblox-hx requires that Neko VM is installed to be able to run the script.
-> It should come pre-packaged by defaut whenever you install haxe, if not then you can find the binaries [here](https://nekovm.org/download/)
+
+[![Haxe](https://img.shields.io/badge/Haxe-4.3+-orange.svg)](https://haxe.org/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/Version-1.0.0--beta.1-green.svg)](haxelib.json)
+
+A powerful Haxe toolchain that enables Roblox game developers to write their games using the Haxe programming language and compile them to Lua for use in Roblox Studio. Leveraging Haxe's built-in Lua transpiler, roblox-hx provides 100% language feature coverage with type safety and modern development tooling.
+
+## ✨ Features
+
+- **Full Haxe Language Support**: Utilizes Haxe's native Lua transpiler for complete language coverage
+- **Type Safety**: Catch errors at compile-time with Haxe's powerful type system
+- **Rich API Coverage**: Comprehensive externs for Roblox services and data types
+- **Project Templates**: Quick-start templates for different project types
+- **Rojo Integration**: Seamless integration with Rojo project management
+- **Macro Compatible**: Leverage the power of Haxe macros for task automation and compile-time type manipulation
+- **Cross-Platform**: Works on Windows, macOS, and Linux
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- [Haxe 4.3+](https://haxe.org/download/)
+- [Neko VM](https://nekovm.org/download/) (included with Haxe by default)
+
+### Installation
 
 ```shell
 haxelib --global install roblox-hx
 haxelib --global run roblox-hx setup
+roblox-hx version
 ```
-To verify that roblox-hx installed successfully, run ``roblox-hx v``. That should should print out the library version, and that also indicates that it was installed correctly.
 
-# Quick-Start
-1. Create a new basic project:<br>
-  - Run ``roblox-hx create ./`` to create a new basic empty project in the current directory.
+### Creating Your First Project
 
-2. Start programming:<br>
-  - You're basically good to go once you create your new project, now you are free to do whatever!
-  - Start out by create more haxe source files, classes and other types.
-
-3. Building:<br>
-  - To build your project into lua, simply run ``roblox-hx compile``, and that will automatically build everything up for you.
-  - Once finished, you can move the files into roblox studio in their respective structure and watch as your haxe code runs in roblox!
-
-# Compiling the library from source (cross-platform)
-Whenever you install roblox-hx, it comes pre-packaged with the most up-to-date neko script executable, which is the core component of the library, but if you'd like to compile it from the ground up, there's still things to do.<br>
-
-1. Go to the library on your terminal:<br>
-  - Open the terminal and set your cwd to the library path or a clone of this repository.
-  - ``cd %HAXEPATH%/lib/roblox-hx/``
-
-2. Install the dependencies
-  - ``hmm install``
-
-3. Build the neko script
-  - ``haxe ./build.hxml``
-
-# Roadmap
-Check out [ROADMAP.md](/ROADMAP.md) to have a preview on what's to come into roblox-hx.
-
-# Contributing
-To contribute to roblox-hx, simply clone the ``dev`` repository, do your additions or changes and make pull requests.
-The github version of roblox-hx does not come with some haxe externs pre-packaged and need to be generated manually.
 ```shell
+roblox-hx create
+```
+
+### Building
+
+```shell
+roblox-hx compile
+```
+
+## 📚 Available Commands
+
+| Command | Description |
+|---------|-------------|
+| `roblox-hx create [path]` | Create a new project with templates |
+| `roblox-hx compile` | Build Haxe source to Lua |
+| `roblox-hx clean` | Remove build leftovers |
+| `roblox-hx setup` | Append library to binaries for quick access |
+| `roblox-hx version` | Display version information |
+| `roblox-hx help` | Show available commands |
+
+## 🎯 API Coverage
+
+Roblox-HX provides comprehensive externs for Roblox's entire API. Due to certain limitations with Haxe's static typing system, some API has been truncated behind Dynamic types, use type casting or wrappers to get around.
+All Lua and Roblox's globals get automatically imported into your Haxe code so you dont have to worry about complex imports.
+
+## 📖 Example Usage
+
+### Basic Client Script
+
+```haxe
+// src/client/Client.hx
+package client;
+
+import rblx.Players;
+
+class Client {
+    public static function main() {
+        var player =  cast(game.getService("Players"), Players).localPlayer;
+        trace("Hello, " + player.name + "!");
+        
+        // Create a part
+        var part:Part = new Instance("Part");
+        part.position = new Vector3(0, 10, 0);
+        part.brickColor = BrickColor.red();
+        part.parent = workspace;
+    }
+}
+```
+
+### Server Script with Events
+
+```haxe
+// src/server/Server.hx
+package server;
+
+import rblx.Players;
+
+class Server {
+    public static function main() {
+        cast(game.getService("Players"), Players).playerAdded.connect(Server.onPlayerAdded);
+    }
+    
+    private static function onPlayerAdded(player:Player):Void {
+        trace("Player joined: " + player.name);
+        
+        // Give player a starting tool
+        var tool:Tool = new Instance("Tool");
+        tool.name = "Sword";
+        tool.parent = player.backpack;
+    }
+}
+```
+
+### Shared Data Class
+
+```haxe
+// src/shared/Data.hx
+package shared;
+
+class GameConfig {
+    public static final MAX_PLAYERS = 20;
+    public static final SPAWN_POSITION = new Vector3(0, 5, 0);
+    public static final GAME_DURATION = 300; // seconds
+    
+    public static function getWelcomeMessage():String {
+        return "Welcome to the game!";
+    }
+}
+```
+
+## 🗺️ Roadmap
+
+Check out our roadmap to see what's coming next:
+
+- [ ] Better Luau externs support
+- [ ] Rich library support
+- [ ] Built-in project management tool
+- [ ] Comprehensive documentation wiki (gh-pages)
+- [ ] Dynamic types from string (mostly for the first argument of findFirstChildWhichIsA)
+- [ ] Service wrapper
+- [ ] Utility wrappers
+
+## 🤝 Contributing
+
+We welcome contributions! Here's how to get started:
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Make your changes and test thoroughly
+4. Submit a pull request with a clear description
+
+## 🏗️ Building from Source
+
+If you want to contribute or modify roblox-hx:
+
+```shell
+# Clone with submodules and setup haxelib dev environment
 git clone https://github.com/Davvex87/roblox-hx.git --recurse-submodules
-cd roblox-hx/api-generator
+haxelib --global dev roblox-hx ./roblox-hx
+
+# Install dependencies
+haxelib --global install hmm
+cd roblox-hx
+hmm install
+
+# Build the neko executable
+haxe ./build.hxml
+
+# Generate API externs (if needed)
+cd api-generator
 haxe ./build.hxml
 neko ./run.n
 ```
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- The [Haxe Foundation](https://haxe.org/) for the amazing Haxe language
+- The [roblox-ts project](https://roblox-ts.com/) for being the main inspiration
+
+## 📞 Support
+
+- 📖 [Wiki](#) (Coming soon)
+- 🐛 [Issues](https://github.com/Davvex87/roblox-hx/issues) - Report bugs and request features
+- 💬 [Discussions](#) - (Coming soon)

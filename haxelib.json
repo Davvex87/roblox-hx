@@ -2,9 +2,17 @@
 	"name": "roblox-hx",
 	"url": "https://github.com/Davvex87/roblox-hx/",
 	"license": "MIT",
-	"tags": ["lua","roblox"],
-	"description": "A tool for compiling Haxe source code into luau to be used in roblox games.",
-	"version": "0.0.0-alpha.3",
-	"releasenote": "Rojo support.",
+	"tags": ["lua","roblox","reflaxe"],
+	"description": "A tool for compiling Haxe source code into lua to be used in roblox games.",
+	"version": "1.0.0",
+	"classPath": "src",
+	"dependencies": {
+		"reflaxe": "4.0.0-beta",
+		"reflaxe.lua": "",
+		"haxe-files": "",
+		"thx.semver": "",
+		"json2object": ""
+	},
+	"releasenote": "1.0.0 Stable release.",
 	"contributors": ["Davvex87"]
 }

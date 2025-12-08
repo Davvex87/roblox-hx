@@ -6,14 +6,21 @@
       "version": null
     },
     {
-      "name": "hxcpp",
+      "name": "json2object",
       "type": "haxelib",
       "version": null
     },
     {
-      "name": "json2object",
+      "name": "reflaxe",
       "type": "haxelib",
-      "version": null
+      "version": "4.0.0-beta"
+    },
+    {
+      "name": "reflaxe.lua",
+      "type": "git",
+      "dir": null,
+      "ref": "master",
+      "url": "https://github.com/Davvex87/reflaxe.lua"
     },
     {
       "name": "thx.semver",

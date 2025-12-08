@@ -1,0 +1,13 @@
+{
+    "packageContexts": {
+        "client": "client",
+        "server": "server",
+        "shared": "shared",
+        "_": "shared#"
+    },
+    "contextPaths": {
+        "client": "StarterPlayer.StarterPlayerScripts",
+        "server": "ServerScriptService",
+        "shared": "ReplicatedStorage"
+    }
+}

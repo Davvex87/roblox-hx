@@ -1,0 +1,8 @@
+# Write your Haxe build configuration here
+# If you are new to Haxe or roblox-hx it is recommended to start with the Starter template instead!
+
+-cp src
+-D lua-output=out
+
+# Required. Do not delete!
+-lib roblox-hx

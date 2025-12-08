@@ -7,5 +7,6 @@
 
 -D no-deprecation-warnings
 -D HAXE_OUTPUT_FILE=run
+-D message.reporting=pretty
 
 --neko run.n
