@@ -4,8 +4,5 @@ bin/
 dump/
 
 src/api-dump.json
-src/rblx/enums/
-src/rblx/instances/
-src/rblx/services/
-
+src/rblx/
 **/rblx.rar
