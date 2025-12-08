@@ -1,5 +1,5 @@
 <div align="center">
-<img width=25% src="https://github.com/Davvex87/roblox-hx/blob/dev/github-resources/roblox-hx-logo-512x512.png?raw=true">
+<img width=25% src="https://github.com/Davvex87/roblox-hx/blob/main/github-resources/roblox-hx-logo-512x512.png?raw=true">
 
 # Roblox-HX
 </div>

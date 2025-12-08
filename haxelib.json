@@ -13,6 +13,6 @@
 		"thx.semver": "",
 		"json2object": ""
 	},
-	"releasenote": "1.0.0 Stable release.",
+	"releasenote": "(Banner fix) Stable release.",
 	"contributors": ["Davvex87"]
 }
