@@ -5,7 +5,7 @@
 	"tags": ["lua","roblox","reflaxe"],
 	"description": "A tool for compiling Haxe source code into lua to be used in roblox games.",
 	"version": "1.0.0",
-	"classPath": "src",
+	"classPath": "src/",
 	"dependencies": {
 		"reflaxe": "4.0.0-beta",
 		"reflaxe.lua": "",

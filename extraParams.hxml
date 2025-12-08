@@ -1,4 +1,2 @@
--lib reflaxe
--lib reflaxe.lua
 -D roblox
--D use-import-wrapper
+-D import_wrapper=rluacompiler.resources.HxPkgWrapper
