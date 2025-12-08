@@ -1,5 +1,5 @@
 <div align="center">
-<img width=25% src="github-resources/roblox-hx-logo-512x512.png">
+<img width=25% src="https://github.com/Davvex87/roblox-hx/blob/dev/github-resources/roblox-hx-logo-512x512.png?raw=true">
 
 # Roblox-HX
 </div>
@@ -43,6 +43,9 @@ roblox-hx version
 roblox-hx create
 ```
 
+Note, you must run the create command inside an empty folder or pass the path of an empty folder as the first argument.
+You can bypass this restriction by providing the flag ``-f``.
+
 ### Building
 
 ```shell
@@ -73,15 +76,17 @@ All Lua and Roblox's globals get automatically imported into your Haxe code so y
 // src/client/Client.hx
 package client;
 
-import rblx.Players;
+import rblx.instances.Part;
+import rblx.services.Players;
 
 class Client {
+	@:topLevelCall
     public static function main() {
         var player =  cast(game.getService("Players"), Players).localPlayer;
         trace("Hello, " + player.name + "!");
         
         // Create a part
-        var part:Part = new Instance("Part");
+        var part:Part = new Part();
         part.position = new Vector3(0, 10, 0);
         part.brickColor = BrickColor.red();
         part.parent = workspace;
@@ -95,9 +100,12 @@ class Client {
 // src/server/Server.hx
 package server;
 
-import rblx.Players;
+import rblx.instances.Tool;
+import rblx.instances.Player;
+import rblx.services.Players;
 
 class Server {
+	@:topLevelCall
     public static function main() {
         cast(game.getService("Players"), Players).playerAdded.connect(Server.onPlayerAdded);
     }
@@ -106,9 +114,9 @@ class Server {
         trace("Player joined: " + player.name);
         
         // Give player a starting tool
-        var tool:Tool = new Instance("Tool");
+        var tool:Tool = new Tool();
         tool.name = "Sword";
-        tool.parent = player.backpack;
+        tool.parent = player.findFirstChildWhichIsA("Backpack");
     }
 }
 ```
@@ -158,11 +166,11 @@ If you want to contribute or modify roblox-hx:
 ```shell
 # Clone with submodules and setup haxelib dev environment
 git clone https://github.com/Davvex87/roblox-hx.git --recurse-submodules
-haxelib --global dev roblox-hx ./roblox-hx
+cd ./roblox-hx
+haxelib --global dev roblox-hx .
 
 # Install dependencies
 haxelib --global install hmm
-cd roblox-hx
 hmm install
 
 # Build the neko executable
