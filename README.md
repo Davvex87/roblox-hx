@@ -77,14 +77,15 @@ All Lua and Roblox's globals get automatically imported into your Haxe code so y
 package client;
 
 import rblx.instances.Part;
-import rblx.services.Players;
 
-class Client {
-	@:topLevelCall
-    public static function main() {
-        var player =  cast(game.getService("Players"), Players).localPlayer;
+class Client
+{
+    @:topLevelCall
+    public static function main()
+    {
+        var player = Services.players.localPlayer;
         trace("Hello, " + player.name + "!");
-        
+
         // Create a part
         var part:Part = new Part();
         part.position = new Vector3(0, 10, 0);
@@ -92,6 +93,7 @@ class Client {
         part.parent = workspace;
     }
 }
+
 ```
 
 ### Server Script with Events
@@ -102,23 +104,26 @@ package server;
 
 import rblx.instances.Tool;
 import rblx.instances.Player;
-import rblx.services.Players;
 
-class Server {
-	@:topLevelCall
-    public static function main() {
-        cast(game.getService("Players"), Players).playerAdded.connect(Server.onPlayerAdded);
+class Server
+{
+    @:topLevelCall
+    public static function main()
+    {
+        Services.players.playerAdded.connect(Server.onPlayerAdded);
     }
-    
-    private static function onPlayerAdded(player:Player):Void {
+
+    private static function onPlayerAdded(player:Player):Void
+    {
         trace("Player joined: " + player.name);
-        
+
         // Give player a starting tool
         var tool:Tool = new Tool();
         tool.name = "Sword";
         tool.parent = player.findFirstChildWhichIsA("Backpack");
     }
 }
+
 ```
 
 ### Shared Data Class
@@ -127,12 +132,14 @@ class Server {
 // src/shared/Data.hx
 package shared;
 
-class GameConfig {
+class GameConfig
+{
     public static final MAX_PLAYERS = 20;
     public static final SPAWN_POSITION = new Vector3(0, 5, 0);
     public static final GAME_DURATION = 300; // seconds
     
-    public static function getWelcomeMessage():String {
+    public static function getWelcomeMessage():String
+    {
         return "Welcome to the game!";
     }
 }
@@ -142,13 +149,13 @@ class GameConfig {
 
 Check out our roadmap to see what's coming next:
 
+- [x] Service wrapper
+- [ ] Dynamic types from string (mostly for the first argument of findFirstChildWhichIsA)
+- [ ] Utility wrappers
 - [ ] Better Luau externs support
 - [ ] Rich library support
 - [ ] Built-in project management tool
 - [ ] Comprehensive documentation wiki (gh-pages)
-- [ ] Dynamic types from string (mostly for the first argument of findFirstChildWhichIsA)
-- [ ] Service wrapper
-- [ ] Utility wrappers
 
 ## 🤝 Contributing
 
@@ -190,6 +197,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - The [Haxe Foundation](https://haxe.org/) for the amazing Haxe language
 - The [roblox-ts project](https://roblox-ts.com/) for being the main inspiration
+- The [reflaxe team](https://github.com/SomeRanDev/Reflaxe) for providing the tools that made a custom Lua generator possible
 
 ## 📞 Support
 
