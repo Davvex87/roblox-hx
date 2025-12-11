@@ -8,9 +8,10 @@
 # Project export path
 -D lua-output=out
 
-# Entry point class
---main Main
-myGame
+# Include packages
+server
+client
+shared
 
 # Required. Do not delete!
 -lib roblox-hx
@@ -26,4 +27,4 @@ myGame
 
 # Defines
 -D copy-non-source-files
--D dce=no
+-D dce=std

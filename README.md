@@ -14,7 +14,7 @@ A powerful Haxe toolchain that enables Roblox game developers to write their gam
 
 ## ✨ Features
 
-- **Full Haxe Language Support**: Utilizes Haxe's native Lua transpiler for complete language coverage
+- **Full Haxe Language Support**: Utilizes reflaxe.lua for the most complete and efficient lua output possible
 - **Type Safety**: Catch errors at compile-time with Haxe's powerful type system
 - **Rich API Coverage**: Comprehensive externs for Roblox services and data types
 - **Project Templates**: Quick-start templates for different project types
