@@ -4,7 +4,7 @@
 	"license": "MIT",
 	"tags": ["lua","roblox","reflaxe"],
 	"description": "A tool for compiling Haxe source code into lua to be used in roblox games.",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"classPath": "src/",
 	"dependencies": {
 		"reflaxe": "4.0.0-beta",
@@ -13,6 +13,6 @@
 		"thx.semver": "",
 		"json2object": ""
 	},
-	"releasenote": "Service wrapper",
+	"releasenote": "Content abstract can now be created from Ints and Strings directly.",
 	"contributors": ["Davvex87"]
 }
