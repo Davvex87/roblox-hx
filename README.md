@@ -8,7 +8,7 @@
 
 [![Haxe](https://img.shields.io/badge/Haxe-4.3+-orange.svg)](https://haxe.org/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-1.0.0--beta.1-green.svg)](haxelib.json)
+[![Version](https://img.shields.io/badge/Version-1.2.0-green.svg)](haxelib.json)
 
 A powerful Haxe toolchain that enables Roblox game developers to write their games using the Haxe programming language and compile them to Lua for use in Roblox Studio. Leveraging Haxe's built-in Lua transpiler, roblox-hx provides 100% language feature coverage with type safety and modern development tooling.
 
