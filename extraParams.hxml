@@ -1,2 +1,2 @@
 -D roblox
--D import_wrapper=rluacompiler.resources.HxPkgWrapper
+-D import_wrapper=rluacompiler.resources.RblxPkgWrapper

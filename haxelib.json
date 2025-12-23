@@ -7,11 +7,6 @@
 	"version": "1.2.0",
 	"classPath": "src/",
 	"dependencies": {
-		"reflaxe": "4.0.0-beta",
-		"reflaxe.lua": "",
-		"haxe-files": "",
-		"thx.semver": "",
-		"json2object": ""
 	},
 	"releasenote": "Content abstract can now be created from Ints and Strings directly.",
 	"contributors": ["Davvex87"]
