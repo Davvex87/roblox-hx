@@ -103,6 +103,7 @@ class CompileCommand implements ICommand
 				for (file in files)
 				{
 					var dir = tempOutputPath.join(file.path.getAbsolutePath().replace("\\", "/").replace(rootClassPath.replace("\\", "/"), ""));
+					dir.parent.toDir().create();
 					file.copyTo(dir, [OVERWRITE]);
 				}
 
