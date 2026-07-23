@@ -1,0 +1,6 @@
+{
+	"requireStr": "local ImportPackage, RegisterPackage = unpack(require(game:GetService(\"ReplicatedStorage\"):WaitForChild(\"HxRuntime\")));",
+	"registerStr": "RegisterPackage(\"::moduleid::\", {$$join(::types::)});",
+	"importStr": "local $$join(::types::) = unpack(ImportPackage(\"::moduleid::\"))",
+	"runtimePath": "HxRuntime.lua"
+}

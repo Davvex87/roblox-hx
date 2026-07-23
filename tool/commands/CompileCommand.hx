@@ -179,7 +179,7 @@ class CompileCommand implements ICommand
 
 			final r = fetchPkgContext("");
 			var pkgContext = r.context;
-			var wrapperPath = Path.of(outputPath.getAbsolutePath()).join(pkgContext).join("HxPkgWrapper.lua");
+			var wrapperPath = Path.of(outputPath.getAbsolutePath()).join(pkgContext).join("HxRuntime.lua");
 			final wrapperFile = File.of(wrapperPath);
 			var wrapperContent = wrapperFile.readAsString();
 			wrapperFile.writeString(wrapperContent.replace("nil--CONFIG", Json2Lua.print(conf)));
