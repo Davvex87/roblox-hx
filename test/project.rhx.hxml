@@ -14,6 +14,7 @@ client
 shared
 
 # Required. Do not delete!
+-lib reflaxe.lua
 -lib roblox-hx
 
 
