@@ -55,14 +55,13 @@ class RobloxHx
 					{
 						cmd.run(ARGUMENTS);
 					}
-					catch (e:Dynamic)
+					catch (e:String)
 					{
-						if (e is String)
-							return exit(-2, e);
-						else if (e is Exception)
-							return exit(-1, e.details());
-						else
-							return exit(-1, Std.string(e));
+						return exit(-2, e);
+					}
+					catch (e:Exception)
+					{
+						return exit(-1, e.details());
 					}
 
 					return exit(SUCCESS);
@@ -81,10 +80,11 @@ class RobloxHx
 	{
 		// Checks if haxe is installed and is of a valid version
 		final haxeVer:Null<Version> = HaxeUtils.getHaxeVersion();
+		final haxeVerWithoutPre:Null<Version> = haxeVer != null ? Version.arrayToVersion([haxeVer.major, haxeVer.minor, haxeVer.patch]) : null;
 		if (haxeVer == null)
 			return exit(HAXE_NOT_PRESENT,
 				'Haxe is not installed. roblox-hx requires Haxe v${Constants.MIN_HAXE_COMPILER_VERSION} or higher (${Constants.HAXE_COMPILER_VERSION} recommended).');
-		else if (haxeVer < Constants.MIN_HAXE_COMPILER_VERSION)
+		else if (haxeVerWithoutPre < Constants.MIN_HAXE_COMPILER_VERSION)
 			return exit(HAXE_VER_INCOMP,
 				'Incompatible Haxe version present (${haxeVer}). roblox-hx requires Haxe v${Constants.MIN_HAXE_COMPILER_VERSION} or higher (${Constants.HAXE_COMPILER_VERSION} recommended).');
 
