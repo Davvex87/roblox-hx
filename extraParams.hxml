@@ -1,2 +1,3 @@
 -D roblox
--D import_wrapper=rluacompiler.resources.RblxPkgWrapper
+-D runtime-config=$$haxelib(roblox-hx)/resources/HxRuntime.json
+-D lua_bit32
