@@ -1,3 +1,6 @@
 -D roblox
 -D runtime-config=$$haxelib(roblox-hx)/resources/HxRuntime.json
 -D lua_bit32
+
+--macro robloxhx.macros.IsACheck.init()
+--macro addGlobalMetadata('', '@:build(robloxhx.macros.WhichIsAMacro.build())', true, true, false)
