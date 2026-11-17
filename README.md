@@ -8,7 +8,7 @@
 
 [![Haxe](https://img.shields.io/badge/Haxe-4.3+-orange.svg)](https://haxe.org/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-1.2.0-green.svg)](haxelib.json)
+[![Version](https://img.shields.io/badge/Version-1.4.0-green.svg)](haxelib.json)
 
 A powerful Haxe toolchain that enables Roblox game developers to write their games using the Haxe programming language and compile them to Lua for use in Roblox Studio. Leveraging Haxe's built-in Lua transpiler, roblox-hx provides 100% language feature coverage with type safety and modern development tooling.
 
@@ -80,7 +80,6 @@ import rblx.instances.Part;
 
 class Client
 {
-    @:topLevelCall
     public static function main()
     {
         var player = Services.players.localPlayer;
@@ -107,7 +106,6 @@ import rblx.instances.Player;
 
 class Server
 {
-    @:topLevelCall
     public static function main()
     {
         Services.players.playerAdded.connect(Server.onPlayerAdded);
@@ -137,7 +135,7 @@ class GameConfig
     public static final MAX_PLAYERS = 20;
     public static final SPAWN_POSITION = new Vector3(0, 5, 0);
     public static final GAME_DURATION = 300; // seconds
-    
+
     public static function getWelcomeMessage():String
     {
         return "Welcome to the game!";
@@ -150,9 +148,9 @@ class GameConfig
 Check out our roadmap to see what's coming next:
 
 - [x] Service wrapper
-- [ ] Dynamic types from string (mostly for the first argument of findFirstChildWhichIsA)
+- [x] Dynamic types from string (mostly for the first argument of findFirstChildWhichIsA)
 - [ ] Utility wrappers
-- [ ] Better Luau externs support
+- [x] Better Luau externs support
 - [ ] Rich library support
 - [ ] Built-in project management tool
 - [ ] Comprehensive documentation wiki (gh-pages)
@@ -177,8 +175,9 @@ cd ./roblox-hx
 haxelib --global dev roblox-hx .
 
 # Install dependencies
-haxelib --global install hmm
-hmm install
+haxelib install haxe-files
+haxelib install json2object
+haxelib install thx.semver
 
 # Build the neko executable
 haxe ./build.hxml

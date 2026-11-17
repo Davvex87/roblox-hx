@@ -4,7 +4,7 @@
 	"license": "MIT",
 	"tags": ["lua","roblox","reflaxe"],
 	"description": "A tool for compiling Haxe source code into lua to be used in roblox games.",
-	"version": "1.3.0",
+	"version": "1.4.0",
 	"classPath": "src/",
 	"dependencies": {
 	},
